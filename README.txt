@@ -5,7 +5,7 @@ Proyecto realizado con Java, Springboot, Rest API. Modelo MVC
 
 ----------------------------------------------------------------------------------------------------------------
 
-Gestion de alquileres de viviendas
+Gestion de alquileres de viviendas - EasyRent
 
 La Sociedad Publica de Alquiler dependiente del Ministerio de la Vivienda necesita una base de datos para gestionar los alquileres de las viviendas de particulares. Los requisitos de esta base de datos son los que se detallan a continuación.
 
