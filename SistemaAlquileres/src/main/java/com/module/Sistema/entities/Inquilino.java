@@ -57,7 +57,7 @@ public class Inquilino implements Serializable{
     private int telefono;
     @OneToOne
     @JoinColumn(name="id_usuario",nullable = false)
-    private Agencia id_usuario;
+    private Usuario id_usuario;
     @Column(name="estado")
     private boolean estado;
     

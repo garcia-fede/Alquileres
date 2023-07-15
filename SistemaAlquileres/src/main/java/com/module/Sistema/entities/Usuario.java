@@ -64,8 +64,9 @@ public class Usuario implements Serializable{
     private Date fecha_baja;
     @Column(name="estado")
     private boolean estado;
-    
+
     public void setEstado(boolean b) {
         estado = b;
     }
+
 }

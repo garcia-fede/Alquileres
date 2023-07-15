@@ -30,6 +30,49 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/inquilinos")
 public class InquilinosRestController {
+    
+    public Inquilino checkNewDuplicate(List<Inquilino> existingInquilinos, boolean isDuplicate, Inquilino newInquilino){
+        for (Inquilino existingInquilino : existingInquilinos) {
+            System.out.println(existingInquilino);
+            System.out.println(newInquilino);
+            System.out.println(existingInquilino.getId_usuario()==newInquilino.getId_usuario());
+            if (existingInquilino.getNIF()==newInquilino.getNIF()
+                || existingInquilino.getId()==newInquilino.getId()
+                || existingInquilino.getId_usuario()==newInquilino.getId_usuario()
+                    ) {
+                isDuplicate=true;
+                break;
+            }
+            else{
+                isDuplicate=false;
+            }
+        }
+        if(isDuplicate){
+            return null;
+        } else{
+            return newInquilino; 
+        }
+    }
+    
+    public Inquilino checkUpdateDuplicate(List<Inquilino> existingInquilinos, boolean isDuplicate, Inquilino newInquilino){
+        for (Inquilino existingInquilino : existingInquilinos) {
+            if (existingInquilino.getNIF()==newInquilino.getNIF()
+                || existingInquilino.getId_usuario()==newInquilino.getId_usuario()
+                    ) {
+                isDuplicate=true;
+                break;
+            }
+            else{
+                isDuplicate=false;
+            }
+        }
+        if(isDuplicate){
+            return null;
+        } else{
+            return newInquilino; 
+        }
+    }
+    
     @Autowired
     private InquilinosService service;
     
@@ -50,12 +93,18 @@ public class InquilinosRestController {
     
     @PostMapping
     public Inquilino add(@RequestBody Inquilino i){
-       return service.add(i); 
+        List<Inquilino> existingInquilinos = service.findAll();
+        Boolean isDuplicate=false;
+
+        return service.add(checkNewDuplicate(existingInquilinos,isDuplicate,i)); 
     }
     @PutMapping("/{id}")
     public Inquilino update(@PathVariable Long id,@RequestBody Inquilino i){
+        List<Inquilino> existingInquilinos = service.findAll();
+        Boolean isDuplicate=false;
+        
         i.setId(id);
-       return service.update(i); 
+        return service.update(checkUpdateDuplicate(existingInquilinos,isDuplicate,i)); 
     }
     @DeleteMapping("/{id}")
     public Inquilino delete(@PathVariable Long id){

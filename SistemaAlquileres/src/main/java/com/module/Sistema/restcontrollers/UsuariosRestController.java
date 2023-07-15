@@ -30,6 +30,46 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/usuarios")
 public class UsuariosRestController {
+    
+    public Usuario checkNewDuplicate(List<Usuario> existingUsuarios, boolean isDuplicate, Usuario newUsuario){
+        for (Usuario existingUsuario : existingUsuarios) {
+            if (existingUsuario.getDocumento()==newUsuario.getDocumento()
+                || existingUsuario.getId()==newUsuario.getId()
+                || existingUsuario.getCorreo().equals(newUsuario.getCorreo())
+                    ) {
+                isDuplicate=true;
+                break;
+            }
+            else{
+                isDuplicate=false;
+            }
+        }
+        if(isDuplicate){
+            return null;
+        } else{
+            return newUsuario; 
+        }
+    }
+    
+    public Usuario checkUpdateDuplicate(List<Usuario> existingUsuarios, boolean isDuplicate, Usuario newUsuario){
+        for (Usuario existingUsuario : existingUsuarios) {
+            if (existingUsuario.getDocumento()==newUsuario.getDocumento()
+                || existingUsuario.getCorreo().equals(newUsuario.getCorreo())
+                    ) {
+                isDuplicate=true;
+                break;
+            }
+            else{
+                isDuplicate=false;
+            }
+        }
+        if(isDuplicate){
+            return null;
+        } else{
+            return newUsuario; 
+        }
+    }
+    
     @Autowired
     private UsuariosService service;
     
@@ -54,37 +94,22 @@ public class UsuariosRestController {
         List<Usuario> existingUsuarios = service.findAll();
         Boolean isDuplicate=false;
         
-        for (Usuario existingUsuario : existingUsuarios) {
-            if (existingUsuario.getDocumento()==u.getDocumento()
-                || existingUsuario.getId()==u.getId()
-                || existingUsuario.getCorreo().equals(u.getCorreo())
-                    ) {
-                System.out.println("Prueba");
-                isDuplicate=true;
-                break;
-            }
-            else{
-                isDuplicate=false;
-            }
-        }
-        if(isDuplicate){
-            System.out.println("Repetido");
-            return null;
-        } else{
-            return service.add(u); 
-        }
+        return service.add(checkNewDuplicate(existingUsuarios,isDuplicate,u));
     }
     
     @PutMapping("/{id}")
     public Usuario update(@PathVariable Long id,@RequestBody Usuario u){
+        List<Usuario> existingUsuarios = service.findAll();
+        Boolean isDuplicate=false;
+        
         u.setId(id);
-       return service.update(u); 
+        return service.update(checkUpdateDuplicate(existingUsuarios,isDuplicate,u)); 
     }
     @DeleteMapping("/{id}")
     public Usuario delete(@PathVariable Long id){
         Usuario objusuario =new Usuario();
         objusuario.setEstado(false);
-       return service.delete(Usuario.builder().id(id).build()); 
+        return service.delete(Usuario.builder().id(id).build()); 
     }
     
 }

@@ -44,8 +44,8 @@ public class Agencia implements Serializable{
     private long id;
     @Column(name="nombre")
     private String nombre;
-    @Column(name="CIF")
-    private int CIF;
+    @Column(name="NIF")
+    private int NIF;
     @Column(name="direccion")
     private String direccion;
     @Column(name="telefono")

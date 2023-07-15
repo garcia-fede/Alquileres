@@ -30,6 +30,43 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/agencias")
 public class AgenciasRestController {
+    
+    public Agencia checkNewDuplicate(List<Agencia> existingAgencias, boolean isDuplicate, Agencia newAgencia){
+        for (Agencia existingAgencia : existingAgencias) {
+            if (existingAgencia.getNIF()==newAgencia.getNIF()
+                || existingAgencia.getId()==newAgencia.getId()
+                    ) {
+                isDuplicate=true;
+                break;
+            }
+            else{
+                isDuplicate=false;
+            }
+        }
+        if(isDuplicate){
+            return null;
+        } else{
+            return newAgencia; 
+        }
+    }
+    
+    public Agencia checkUpdateDuplicate(List<Agencia> existingAgencias, boolean isDuplicate, Agencia newAgencia){
+        for (Agencia existingAgencia : existingAgencias) {
+            if (existingAgencia.getNIF()==newAgencia.getNIF()) {
+                isDuplicate=true;
+                break;
+            }
+            else{
+                isDuplicate=false;
+            }
+        }
+        if(isDuplicate){
+            return null;
+        } else{
+            return newAgencia; 
+        }
+    }
+    
     @Autowired
     private AgenciasService service;
     
@@ -49,13 +86,19 @@ public class AgenciasRestController {
     }
     
     @PostMapping
-    public Agencia add(@RequestBody Agencia u){
-       return service.add(u); 
+    public Agencia add(@RequestBody Agencia a){
+        List<Agencia> existingAgencias = service.findAll();
+        Boolean isDuplicate=false;
+        
+        return service.add(checkNewDuplicate(existingAgencias,isDuplicate,a)); 
     }
     @PutMapping("/{id}")
-    public Agencia update(@PathVariable Long id,@RequestBody Agencia u){
-        u.setId(id);
-       return service.update(u); 
+    public Agencia update(@PathVariable Long id,@RequestBody Agencia a){
+        List<Agencia> existingAgencias = service.findAll();
+        Boolean isDuplicate=false;
+        
+        a.setId(id);
+        return service.update(checkUpdateDuplicate(existingAgencias,isDuplicate,a)); 
     }
     @DeleteMapping("/{id}")
     public Agencia delete(@PathVariable Long id){
