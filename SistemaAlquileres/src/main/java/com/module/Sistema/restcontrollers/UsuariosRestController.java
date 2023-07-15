@@ -50,8 +50,31 @@ public class UsuariosRestController {
     
     @PostMapping
     public Usuario add(@RequestBody Usuario u){
-       return service.add(u); 
+        //Checkear que no se repitan valores únicos
+        List<Usuario> existingUsuarios = service.findAll();
+        Boolean isDuplicate=false;
+        
+        for (Usuario existingUsuario : existingUsuarios) {
+            if (existingUsuario.getDocumento()==u.getDocumento()
+                || existingUsuario.getId()==u.getId()
+                || existingUsuario.getCorreo().equals(u.getCorreo())
+                    ) {
+                System.out.println("Prueba");
+                isDuplicate=true;
+                break;
+            }
+            else{
+                isDuplicate=false;
+            }
+        }
+        if(isDuplicate){
+            System.out.println("Repetido");
+            return null;
+        } else{
+            return service.add(u); 
+        }
     }
+    
     @PutMapping("/{id}")
     public Usuario update(@PathVariable Long id,@RequestBody Usuario u){
         u.setId(id);

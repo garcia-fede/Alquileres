@@ -19,6 +19,6 @@ public class tiendaTests {
     @Test
     public void generatepassword(){
         BCryptPasswordEncoder passGen = new BCryptPasswordEncoder();
-        System.out.println(passGen.encode("campeon"));
+        System.out.println(passGen.encode("prueba"));
     }
 }
