@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-07-2023 a las 17:31:33
+-- Tiempo de generación: 15-07-2023 a las 19:58:22
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.0.28
 
@@ -36,6 +36,13 @@ CREATE TABLE `agencias` (
   `estado` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `agencias`
+--
+
+INSERT INTO `agencias` (`id_agencia`, `nombre`, `CIF`, `direccion`, `telefono`, `estado`) VALUES
+(1, 'Perez Novoa', 66661111, 'Segurola y Habana 4310', 553355335, b'1');
+
 -- --------------------------------------------------------
 
 --
@@ -55,6 +62,13 @@ CREATE TABLE `alquileres` (
   `estado` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `alquileres`
+--
+
+INSERT INTO `alquileres` (`id_alquiler`, `fecha_inicio`, `fecha_fin`, `importe_mensual`, `fianza`, `fecha_firma`, `id_vivienda`, `id_inquilino`, `id_alquiler_anterior`, `estado`) VALUES
+(1, '2023-07-15', '2023-08-15', 80000, 10000, '2023-07-15', 1, 1, NULL, b'1');
+
 -- --------------------------------------------------------
 
 --
@@ -71,6 +85,13 @@ CREATE TABLE `inquilinos` (
   `id_usuario` int(11) NOT NULL,
   `estado` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `inquilinos`
+--
+
+INSERT INTO `inquilinos` (`id_inquilino`, `NIF`, `nombre`, `apellidos`, `fecha_nacimiento`, `telefono`, `id_usuario`, `estado`) VALUES
+(1, 65656565, 'Lionel', 'Messi', '1987-08-26', 18122022, 2, b'1');
 
 -- --------------------------------------------------------
 
@@ -93,18 +114,33 @@ CREATE TABLE `usuarios` (
   `estado` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id_usuario`, `documento`, `tipo_documento`, `nacionalidad`, `user`, `password`, `rol`, `correo`, `telefono`, `fecha_alta`, `fecha_baja`, `estado`) VALUES
+(1, 43403743, 'Tarjeta', 'Argentino', 'fede', '$2a$10$aT.qPMhmUlyCF44ia7Y3c.3O3iKjU6Rtonkodfe4f9/DADudreYsa', 'ADMIN', 'federicoignaciogarcia@gmail.com', 1122334455, '2023-07-14', '2024-07-14', b'1'),
+(2, 14141414, 'Libreta', 'Argentino', 'Lionel', '$2a$10$u2W1Ev1NIekgj991/ZbnaO9p49VdMi04Uswr4rcQc7ukJR7Lfv2ki', 'USUARIO', 'lionelmessi@gmail.com', 20231812, '2023-07-14', '2024-07-14', b'1');
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `vivienda`
+-- Estructura de tabla para la tabla `viviendas`
 --
 
-CREATE TABLE `vivienda` (
+CREATE TABLE `viviendas` (
   `id_vivienda` int(11) NOT NULL,
   `direccion` varchar(100) NOT NULL,
   `id_agencia` int(11) NOT NULL,
   `estado` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `viviendas`
+--
+
+INSERT INTO `viviendas` (`id_vivienda`, `direccion`, `id_agencia`, `estado`) VALUES
+(1, 'Catar 2022', 1, b'1');
 
 --
 -- Índices para tablas volcadas
@@ -138,10 +174,11 @@ ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id_usuario`);
 
 --
--- Indices de la tabla `vivienda`
+-- Indices de la tabla `viviendas`
 --
-ALTER TABLE `vivienda`
-  ADD PRIMARY KEY (`id_vivienda`);
+ALTER TABLE `viviendas`
+  ADD PRIMARY KEY (`id_vivienda`),
+  ADD KEY `fk_id_agencia` (`id_agencia`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -151,31 +188,31 @@ ALTER TABLE `vivienda`
 -- AUTO_INCREMENT de la tabla `agencias`
 --
 ALTER TABLE `agencias`
-  MODIFY `id_agencia` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_agencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `alquileres`
 --
 ALTER TABLE `alquileres`
-  MODIFY `id_alquiler` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_alquiler` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `inquilinos`
 --
 ALTER TABLE `inquilinos`
-  MODIFY `id_inquilino` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_inquilino` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `vivienda`
+-- AUTO_INCREMENT de la tabla `viviendas`
 --
-ALTER TABLE `vivienda`
-  MODIFY `id_vivienda` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `viviendas`
+  MODIFY `id_vivienda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
@@ -186,13 +223,19 @@ ALTER TABLE `vivienda`
 --
 ALTER TABLE `alquileres`
   ADD CONSTRAINT `fk_id_inqulino` FOREIGN KEY (`id_inquilino`) REFERENCES `inquilinos` (`id_inquilino`),
-  ADD CONSTRAINT `fk_id_vivienda` FOREIGN KEY (`id_vivienda`) REFERENCES `vivienda` (`id_vivienda`);
+  ADD CONSTRAINT `fk_id_vivienda` FOREIGN KEY (`id_vivienda`) REFERENCES `viviendas` (`id_vivienda`);
 
 --
 -- Filtros para la tabla `inquilinos`
 --
 ALTER TABLE `inquilinos`
   ADD CONSTRAINT `fk_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
+
+--
+-- Filtros para la tabla `viviendas`
+--
+ALTER TABLE `viviendas`
+  ADD CONSTRAINT `fk_id_agencia` FOREIGN KEY (`id_agencia`) REFERENCES `agencias` (`id_agencia`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
