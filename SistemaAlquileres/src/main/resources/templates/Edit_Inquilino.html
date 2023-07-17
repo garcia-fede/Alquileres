@@ -16,17 +16,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
           <nav th:replace="../fragments/Menu.html :: menu"></nav>
         </div>
         <div class="container d-flex justify-content-center mt-5 py-3">
-            <div class="col-sm-6 bg-warning d-flex flex-column justify-content-center">
-                <h1 class="text-center title"></h1>
-                <div class="col-sm-12 row d-flex justify-content-center gap-4 py-5">
-                    <div class="border col-3 px-0 vivienda bg-light" th:each="vivienda : ${listViviendas}">
-                        <img class="w-100" th:src="${vivienda.imagen}">
-                        <div class="d-flex flex-column justify-content-between px-3">
-                            <p class="pt-3" th:text="${vivienda.direccion}"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div th:replace="../fragments/FormLogo.html :: formlogo"></div>
             <div class="col-sm-6">
                 <form class="border border-secondary-emphasis p-5" method="POST" action="#" th:action="@{/Inquilinos/save}" th:object="${inquilino}">
                     <div class="mb-3">

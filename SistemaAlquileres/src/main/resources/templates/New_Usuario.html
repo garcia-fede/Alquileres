@@ -16,8 +16,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <nav th:replace="../fragments/Menu.html :: menu"></nav>
         </div>
         <div class="container d-flex justify-content-center mt-5 pt-5">
+            <div th:replace="../fragments/FormLogo.html :: formlogo"></div>
             <div class="col-sm-6">
-                <form class="border rounded-4 border-secondary-emphasis p-5 mt-3" method="POST" action="#" th:action="@{/Usuarios/save}" th:object="${usuario}">
+                <form class="border border-secondary-emphasis px-5 py-4" method="POST" action="#" th:action="@{/Usuarios/save}" th:object="${usuario}">
                     <div class="mb-3">
                         <div>DOCUMENTO</div>
                         <input type="text" th:field="*{documento}" class="form-control">
