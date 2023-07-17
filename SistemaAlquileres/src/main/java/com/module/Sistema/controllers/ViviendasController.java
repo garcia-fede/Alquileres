@@ -27,34 +27,34 @@ public class ViviendasController {
     private ViviendasService service;
     
     //En singular y mayuscula "Vivienda" para diferenciar del rest controller
-    @RequestMapping("/Vivienda")
+    @RequestMapping("/Viviendas/Gestion")
     public String viewHomepage(Model model){
         List<Vivienda> listViviendas = service.findAll();
         model.addAttribute("listViviendas",listViviendas);
-        return("Vivienda");
+        return("ViviendasGestion");
     }
     
-    @RequestMapping("/Vivienda/findAllCustom")
+    @RequestMapping("/Viviendas/Disponibles")
     public String viewHomePageCustom(Model model){
         List<Vivienda> listViviendasCustom = service.findAllCustom();
         model.addAttribute("listViviendasCustom",listViviendasCustom);
-        return("Vivienda");
+        return("ViviendasDisponibles");
     }
     
-    @RequestMapping("/Vivienda/new")
+    @RequestMapping("/Viviendas/new")
     public String showNewViviendaForm(Model model){
         Vivienda vivienda = new Vivienda();
         model.addAttribute("vivienda",vivienda);
         return ("New_Vivienda");
     }
     
-    @RequestMapping(value="/Vivienda/save", method = RequestMethod.POST)
+    @RequestMapping(value="/Viviendas/save", method = RequestMethod.POST)
      public String saveVivienda(@ModelAttribute("Vivienda") Vivienda vivienda){
         service.add(vivienda);
-        return("redirect:/Vivienda");
+        return("redirect:/Viviendas/Gestion");
     }
     
-    @RequestMapping("/Vivienda/edit/{id}")
+    @RequestMapping("/Viviendas/edit/{id}")
     public ModelAndView showEditViviendaForm(@PathVariable(name="id") Vivienda v){
         ModelAndView mav = new ModelAndView("Edit_Vivienda");
         Vivienda vivienda = service.update(v);
@@ -62,10 +62,10 @@ public class ViviendasController {
         return mav;
     }
     
-    @RequestMapping("/Vivienda/delete/{id}")
+    @RequestMapping("/Viviendas/delete/{id}")
     public String deleteVivienda(@PathVariable(name="id") Vivienda v){
         service.delete(v);
-        return ("redirect:/Vivienda");
+        return ("redirect:/Viviendas/Gestion");
     }
     
 }

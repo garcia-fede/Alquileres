@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
+.poppins{
+    font-family: 'Poppins', sans-serif;
+}
+
+button a{
+    text-decoration: none;
+}
+
+.vivienda{
+    transition:0.3s;
+}
+.vivienda:hover{
+    cursor:pointer;
+    transform:scale(1.1);
+}
+
+.btn-outline-dark a{
+    color:white;
+}
+.btn-outline-dark{
+    background:black !important;
+}
+.btn-outline-dark:hover{
+    background:white !important;
+}
+.btn-outline-dark:hover a{
+    color:black;
+}

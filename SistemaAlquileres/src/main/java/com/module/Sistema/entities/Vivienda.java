@@ -46,6 +46,8 @@ public class Vivienda implements Serializable{
     private long id;
     @Column(name="direccion")
     private String direccion;
+    @Column(name="imagen_url")
+    private String imagen;
     @ManyToOne
     @JoinColumn(name="id_agencia",nullable = false)
     private Agencia id_agencia;

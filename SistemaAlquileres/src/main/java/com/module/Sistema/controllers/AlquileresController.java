@@ -27,45 +27,81 @@ public class AlquileresController {
     private AlquileresService service;
     
     //En singular y mayuscula "Alquiler" para diferenciar del rest controller
-    @RequestMapping("/Alquiler")
-    public String viewHomepage(Model model){
+    @RequestMapping("/Alquileres/Gestion")
+    public String viewGestionAlquileres(Model model){
         List<Alquiler> listAlquileres = service.findAll();
         model.addAttribute("listAlquileres",listAlquileres);
-        return("Alquiler");
+        return("AlquileresGestion");
     }
     
-    @RequestMapping("/Alquiler/findAllCustom")
-    public String viewHomePageCustom(Model model){
-        List<Alquiler> listAlquileresCustom = service.findAllCustom();
-        model.addAttribute("listAlquileresCustom",listAlquileresCustom);
-        return("Alquiler");
+    @RequestMapping("/Alquileres/Habilitacion")
+    public String viewHabilitacionAlquileres(Model model){
+        List<Alquiler> listAlquileres = service.findAll();
+        model.addAttribute("listAlquileres",listAlquileres);
+        return("AlquileresHabilitacion");
     }
     
-    @RequestMapping("/Alquiler/new")
+    @RequestMapping("/Alquileres/Vigentes")
+    public String viewAlquileresVigentes(Model model){
+        List<Alquiler> listAlquileres = service.findAll();
+        model.addAttribute("listAlquileres",listAlquileres);
+        return("AlquileresVigentes");
+    }
+    
+    @RequestMapping("/Alquileres/New")
     public String showNewAlquilerForm(Model model){
         Alquiler alquiler = new Alquiler();
         model.addAttribute("alquiler",alquiler);
         return ("New_Alquiler");
     }
-    
-    @RequestMapping(value="/Alquiler/save", method = RequestMethod.POST)
+        
+    @RequestMapping(value="/Alquileres/save", method = RequestMethod.POST)
      public String saveAlquiler(@ModelAttribute("Alquiler") Alquiler alquiler){
-        service.add(alquiler);
-        return("redirect:/Alquiler");
+         try{
+            service.add(alquiler);
+            return("redirect:/Alquileres/Gestion");
+         } catch(Exception e){
+             return("ErrorPage");
+         }
+    }
+     
+    @RequestMapping("/Alquileres/Solicitud")
+    public String showNewSolicitudForm(Model model){
+        Alquiler alquiler = new Alquiler();
+        model.addAttribute("alquiler",alquiler);
+        return ("Solicitud_Alquiler");
     }
     
-    @RequestMapping("/Alquiler/edit/{id}")
-    public ModelAndView showEditAlquilerForm(@PathVariable(name="id") Alquiler u){
+     @RequestMapping(value="/Alquileres/saveSolicitud", method = RequestMethod.POST)
+     public String saveSolicitud(@ModelAttribute("Alquiler") Alquiler alquiler){
+        try{
+            alquiler.setEstado(false);
+            service.add(alquiler);
+            return("redirect:/Alquileres/Vigentes");
+        } catch(Exception e){
+            return("ErrorPage");
+        }
+    }
+    
+    @RequestMapping("/Alquileres/edit/{id}")
+    public ModelAndView showEditAlquilerForm(@PathVariable(name="id") Alquiler a){
         ModelAndView mav = new ModelAndView("Edit_Alquiler");
-        Alquiler alquiler = service.update(u);
+        Alquiler alquiler = service.update(a);
         mav.addObject("alquiler",alquiler);
         return mav;
     }
     
-    @RequestMapping("/Alquiler/delete/{id}")
-    public String deleteAlquiler(@PathVariable(name="id") Alquiler u){
-        service.delete(u);
-        return ("redirect:/Alquiler");
+    @RequestMapping("/Alquileres/delete/{id}")
+    public String deleteAlquiler(@PathVariable(name="id") Alquiler a){
+        service.delete(a);
+        return ("redirect:/Alquileres/Habilitacion");
+    }
+    
+    @RequestMapping("/Alquileres/authorize/{id}")
+    public String authorizeAlquiler(@PathVariable(name="id") Alquiler a){
+        a.setEstado(true);
+        service.update(a);
+        return ("redirect:/Alquileres/Habilitacion");
     }
     
 }

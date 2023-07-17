@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -44,14 +45,17 @@ public class Alquiler implements Serializable{
     @Column(name="id_alquiler")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name="fecha_inicio")
     private Date fecha_inicio;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name="fecha_fin")
     private Date fecha_fin;
     @Column(name="importe_mensual")
     private int importe_mensual;
     @Column(name="fianza")
     private int fianza;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name="fecha_firma")
     private Date fecha_firma;
     @ManyToOne

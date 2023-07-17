@@ -6,6 +6,9 @@ package com.module.Sistema.services;
 
 import com.module.Sistema.entities.Alquiler;
 import com.module.Sistema.repositories.Ialquiler;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.BeanUtils;
@@ -39,6 +42,12 @@ public class AlquileresServiceImplement implements AlquileresService{
 
     @Override
     public Alquiler add(Alquiler a) {
+        Optional<Alquiler> objalquiler = ialquiler.findById(a.getId());
+        if(!objalquiler.isEmpty()){
+            a.setFecha_inicio(objalquiler.get().getFecha_inicio());
+            a.setFecha_fin(objalquiler.get().getFecha_fin());
+            a.setFecha_firma(objalquiler.get().getFecha_firma());
+        }
         return ialquiler.save(a);
     }
 
