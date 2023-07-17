@@ -26,6 +26,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <input type="text" th:field="*{id_agencia}" class="form-control">
                     </div>
                     <div class="mb-3">
+                        <div>URL IMAGEN</div>
+                        <input type="text" th:field="*{imagen}" class="form-control">
+                    </div>
+                    <div class="mb-3">
                         ESTADO
                         <select class="form-select" th:field="*{estado}">
                             <option th:value="'true'" th:text="Activo"></option>

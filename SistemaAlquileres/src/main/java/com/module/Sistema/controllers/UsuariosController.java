@@ -27,34 +27,27 @@ public class UsuariosController {
     private UsuariosService service;
     
     //En singular y mayuscula "Usuario" para diferenciar del rest controller
-    @RequestMapping("/Usuario")
-    public String viewHomepage(Model model){
+    @RequestMapping("/Usuarios/Gestion")
+    public String viewUsuarios(Model model){
         List<Usuario> listUsuarios = service.findAll();
         model.addAttribute("listUsuarios",listUsuarios);
-        return("Usuario");
+        return("UsuariosGestion");
     }
     
-    @RequestMapping("/Usuario/findAllCustom")
-    public String viewHomePageCustom(Model model){
-        List<Usuario> listUsuariosCustom = service.findAllCustom();
-        model.addAttribute("listUsuariosCustom",listUsuariosCustom);
-        return("Usuario");
-    }
-    
-    @RequestMapping("/Usuario/new")
+    @RequestMapping("/Usuarios/New")
     public String showNewUsuarioForm(Model model){
         Usuario usuario = new Usuario();
         model.addAttribute("usuario",usuario);
         return ("New_Usuario");
     }
     
-    @RequestMapping(value="/Usuario/save", method = RequestMethod.POST)
+    @RequestMapping(value="/Usuarios/save", method = RequestMethod.POST)
      public String saveUsuario(@ModelAttribute("Usuario") Usuario usuario){
         service.add(usuario);
-        return("redirect:/Usuario");
+        return("redirect:/Usuarios/Gestion");
     }
     
-    @RequestMapping("/Usuario/edit/{id}")
+    @RequestMapping("/Usuarios/edit/{id}")
     public ModelAndView showEditUsuarioForm(@PathVariable(name="id") Usuario u){
         ModelAndView mav = new ModelAndView("Edit_Usuario");
         Usuario usuario = service.update(u);
@@ -62,10 +55,10 @@ public class UsuariosController {
         return mav;
     }
     
-    @RequestMapping("/Usuario/delete/{id}")
+    @RequestMapping("/Usuarios/delete/{id}")
     public String deleteUsuario(@PathVariable(name="id") Usuario u){
         service.delete(u);
-        return ("redirect:/Usuario");
+        return ("redirect:/Usuarios/Gestion");
     }
     
 }

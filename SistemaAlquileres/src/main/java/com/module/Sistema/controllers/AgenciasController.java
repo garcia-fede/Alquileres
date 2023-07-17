@@ -27,45 +27,45 @@ public class AgenciasController {
     private AgenciasService service;
     
     //En singular y mayuscula "Agencia" para diferenciar del rest controller
-    @RequestMapping("/Agencia")
-    public String viewHomepage(Model model){
+    @RequestMapping("/Agencias/Gestion")
+    public String viewAgencias(Model model){
         List<Agencia> listAgencias = service.findAll();
         model.addAttribute("listAgencias",listAgencias);
-        return("Agencia");
+        return("AgenciasGestion");
     }
     
-    @RequestMapping("/Agencia/findAllCustom")
-    public String viewHomePageCustom(Model model){
+    @RequestMapping("/Agencias/Vigentes")
+    public String viewAgenciasVigentes(Model model){
         List<Agencia> listAgenciasCustom = service.findAllCustom();
         model.addAttribute("listAgenciasCustom",listAgenciasCustom);
-        return("Agencia");
+        return("AgenciasVigentes");
     }
     
-    @RequestMapping("/Agencia/new")
+    @RequestMapping("/Agencias/New")
     public String showNewAgenciaForm(Model model){
         Agencia agencia = new Agencia();
         model.addAttribute("agencia",agencia);
         return ("New_Agencia");
     }
     
-    @RequestMapping(value="/Agencia/save", method = RequestMethod.POST)
+    @RequestMapping(value="/Agencias/save", method = RequestMethod.POST)
      public String saveAgencia(@ModelAttribute("Agencia") Agencia agencia){
         service.add(agencia);
-        return("redirect:/Agencia");
+        return("redirect:/Agencias/Gestion");
     }
     
-    @RequestMapping("/Agencia/edit/{id}")
-    public ModelAndView showEditAgenciaForm(@PathVariable(name="id") Agencia u){
+    @RequestMapping("/Agencias/edit/{id}")
+    public ModelAndView showEditAgenciaForm(@PathVariable(name="id") Agencia a){
         ModelAndView mav = new ModelAndView("Edit_Agencia");
-        Agencia agencia = service.update(u);
+        Agencia agencia = service.update(a);
         mav.addObject("agencia",agencia);
         return mav;
     }
     
-    @RequestMapping("/Agencia/delete/{id}")
-    public String deleteAgencia(@PathVariable(name="id") Agencia u){
-        service.delete(u);
-        return ("redirect:/Agencia");
+    @RequestMapping("/Agencias/delete/{id}")
+    public String deleteAgencia(@PathVariable(name="id") Agencia a){
+        service.delete(a);
+        return ("redirect:/Agencias/Gestion");
     }
     
 }

@@ -6,6 +6,7 @@ package com.module.Sistema.services;
 
 import com.module.Sistema.entities.Usuario;
 import com.module.Sistema.repositories.Iusuario;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.BeanUtils;
@@ -39,6 +40,12 @@ public class UsuariosServiceImplement implements UsuariosService{
 
     @Override
     public Usuario add(Usuario u) {
+        Optional<Usuario> objusuario = iusuario.findById(u.getId());
+        if(!objusuario.isEmpty()){
+            u.setFecha_baja(objusuario.get().getFecha_baja());
+        } else{
+            u.setFecha_alta(new Date());
+        }
         return iusuario.save(u);
     }
 

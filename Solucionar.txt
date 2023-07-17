@@ -1,3 +1,0 @@
-Post y Update con foreign keys => Se cambia id_vinculada y no actualiza correctamente
-
-Completar post y updates de viviendas y alquileres

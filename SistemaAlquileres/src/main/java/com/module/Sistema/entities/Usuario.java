@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -58,8 +59,10 @@ public class Usuario implements Serializable{
     private String correo;
     @Column(name="telefono")
     private int telefono;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name="fecha_alta")
     private Date fecha_alta;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name="fecha_baja")
     private Date fecha_baja;
     @Column(name="estado")
