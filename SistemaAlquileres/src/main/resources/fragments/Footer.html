@@ -1,9 +1,23 @@
 <footer th:fragment="footer" class="row mx-auto">
-    <div class="container-fluid d-flex flex-column align-items-center bg-light py-0 text-center px-0" style="height:350px">
-        <div class="container-xxl d-flex gap-5 row h-75 mt-5 pb-3" style="border-bottom: 1px solid lightgray">
-            <div class="col bg-primary py-1"></div>
-            <div class="col bg-dark py-1"></div>
+    <div class="footer-container container-fluid d-flex flex-column align-items-center bg-light py-0 text-center px-0" style="height:250px">
+        <div class="container-xxl d-flex justify-content-center gap-5 row h-75 mt-5 pb-3" style="border-bottom: 1px solid lightgray">
+            <div class="col py-1 d-flex justify-content-center">
+                <ul>
+                    <li class="list-unstyled pb-3">ROLES</li>
+                    <li class="list-unstyled py-1"><a href="/EasyRent/Cliente">Cliente</a></li>
+                    <li class="list-unstyled py-1"><a href="/EasyRent/Empleado">Empleado</a></li>
+                    <li class="list-unstyled py-1"><a href="/EasyRent/Admin">Admin</a></li>
+                </ul>
+            </div>
+            <div class="col py-1 d-flex justify-content-center">
+                <ul>
+                    <li class="list-unstyled pb-3">NAVEGACION</li>
+                    <li class="list-unstyled py-1"><a href="/EasyRent/Cliente">Mi alquiler</a></li>
+                    <li class="list-unstyled py-1"><a href="/EasyRent/Viviendas/Disponibles">Viviendas</a></li>
+                    <li class="list-unstyled py-1"><a href="/EasyRent/Agencias/Vigentes">Agencias</a></li>
+                </ul>
+            </div>
         </div>
-        <p class="text-align-center pt-4">Copyright 2023 - Designed by Federico Garcia</p>
+        <p class="text-align-center py-4">Copyright 2023 - Designed by Federico Garcia</p>
     </div> 
 </footer>

@@ -11,6 +11,9 @@
 .Home button a{
     color:white;
 }
+
+/*CAROUSEL */
+
 .home-carousel{
     overflow:hidden;
 }
@@ -85,9 +88,11 @@
   animation: 35s slide infinite linear;
 }
 
-button a{
-    text-decoration: none;
+.carousel-container:hover .carousel-slide {
+  animation-play-state: paused;
 }
+
+/*VIVIENDAS*/
 
 .vivienda{
     transition:0.3s;
@@ -97,6 +102,11 @@ button a{
     transform:scale(1.1);
 }
 
+/*BOTONES */
+
+button a{
+    text-decoration: none;
+}
 .btn-outline-dark a{
     color:white;
 }
@@ -109,6 +119,27 @@ button a{
 .btn-outline-dark:hover a{
     color:black;
 }
+
+/*FOOTER*/
+
+.footer-container ul{
+    width:auto;
+    padding:0;
+    margin:0;
+}
+.footer-container ul li{
+    width:100px;
+    text-align: start;
+}
+.footer-container ul li a{
+    text-decoration: none;
+    color:gray;    
+}
+.footer-container ul li a:hover{
+    color:blue;
+}
+
+/*ANIMACIONES*/
 
 @keyframes slide {
     from {
