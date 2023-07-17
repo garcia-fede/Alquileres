@@ -1,7 +1,7 @@
 <footer th:fragment="footer" class="row mx-auto">
     <div class="footer-container container-fluid d-flex flex-column align-items-center bg-light pb-0 text-center px-0" style="height:250px">
-        <div class="container-xxl d-flex justify-content-center gap-5 row h-75 mt-5 pb-3" style="border-bottom: 1px solid lightgray">
-            <div class="col py-1 d-flex justify-content-center">
+        <div class="container-xxl d-flex flex-row-reverse justify-content-center gap-5 row h-75 mt-5" style="border-bottom: 1px solid lightgray">
+            <div class="col-3 py-1 d-flex justify-content-center">
                 <ul>
                     <li class="list-unstyled pb-3">ROLES</li>
                     <li class="list-unstyled py-1"><a href="/EasyRent/Cliente">Cliente</a></li>
@@ -9,13 +9,18 @@
                     <li class="list-unstyled py-1"><a href="/EasyRent/Admin">Admin</a></li>
                 </ul>
             </div>
-            <div class="col py-1 d-flex justify-content-center">
+            <div class="col-3 py-1 d-flex justify-content-center">
                 <ul>
                     <li class="list-unstyled pb-3">NAVEGACION</li>
-                    <li class="list-unstyled py-1"><a href="/EasyRent/Cliente">Mi alquiler</a></li>
                     <li class="list-unstyled py-1"><a href="/EasyRent/Viviendas/Disponibles">Viviendas</a></li>
                     <li class="list-unstyled py-1"><a href="/EasyRent/Agencias/Vigentes">Agencias</a></li>
+                    <li class="list-unstyled py-1"><a href="/EasyRent/Cliente">Historial</a></li>
                 </ul>
+            </div>
+            <div class="col-12 py-1 d-flex justify-content-center align-items-center" style="border-top: 1px solid lightgray">
+                <a href="/EasyRent/">
+                    <img style="height:75px;" src="https://images.squarespace-cdn.com/content/v1/625182ed89649774fa76d3d7/9898679c-50b0-4ddc-b69e-78e7e4ff4705/imageedit_1_4256509042.png">
+                </a>
             </div>
         </div>
         <p class="text-align-center pt-4">Copyright 2023 - Designed by Federico Garcia</p>

@@ -10,6 +10,9 @@ import com.module.Sistema.entities.Vivienda;
 import com.module.Sistema.services.AlquileresService;
 import com.module.Sistema.services.InquilinosService;
 import com.module.Sistema.services.ViviendasService;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Date;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +57,24 @@ public class AlquileresController {
         List<Alquiler> listAlquileres = service.findAll();
         model.addAttribute("listAlquileres",listAlquileres);
         return("AlquileresVigentes");
+    }
+    
+    @RequestMapping("/Alquileres/Historial")
+    public String viewHistorialAlquileres(Model model){
+        List<Alquiler> listAlquileres = service.findAll();
+        List<Long> duracionAlquileres = new ArrayList<>();
+        for(Alquiler alquiler : listAlquileres){
+            Date fechaInicio = alquiler.getFecha_inicio();
+            Date fechaFin = alquiler.getFecha_fin();
+            
+            long differenceInMillis = fechaFin.getTime() - fechaInicio.getTime();
+            long days = differenceInMillis / (24 * 60 * 60 * 1000);
+
+            duracionAlquileres.add(days);
+        }
+        model.addAttribute("listAlquileres",listAlquileres);
+        model.addAttribute("duracionAlquileres",duracionAlquileres);
+        return("AlquileresHistorial");
     }
     
     @RequestMapping("/Alquileres/New")
