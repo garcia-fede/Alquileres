@@ -30,6 +30,12 @@ public class SecurityConfig {
     @Qualifier("usuarioDetailsService")
     private UsuarioDetailsService usuarioDetailsService;
 
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.csrf().disable();
+        return http.build();
+    }
+    
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
         auth.userDetailsService(usuarioDetailsService).passwordEncoder(passwordEncoder());
@@ -37,6 +43,10 @@ public class SecurityConfig {
         
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+    
+     protected void configureGlobal(HttpSecurity http) throws Exception {
+        http.csrf().disable(); // Disable CSRF protection
     }
     
     @Bean

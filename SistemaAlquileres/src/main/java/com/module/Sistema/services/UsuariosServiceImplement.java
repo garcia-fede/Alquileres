@@ -46,7 +46,18 @@ public class UsuariosServiceImplement implements UsuariosService{
         } else{
             u.setFecha_alta(new Date());
         }
-        return iusuario.save(u);
+        List<Usuario> listUsuarios = iusuario.findAll();
+        boolean isRepeated = false;
+        for(Usuario usuario : listUsuarios){
+            if(u.getCorreo().equals(usuario.getCorreo())||u.getUser().equals(usuario.getUser())||u.getDocumento()==usuario.getDocumento()){
+                isRepeated = true;
+            }
+        }
+        if(isRepeated){
+            return null;
+        } else{
+            return iusuario.save(u);
+        }
     }
 
     @Override

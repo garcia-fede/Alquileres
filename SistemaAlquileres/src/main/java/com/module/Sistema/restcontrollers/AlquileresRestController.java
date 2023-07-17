@@ -50,7 +50,9 @@ public class AlquileresRestController {
     
     @PostMapping
     public Alquiler add(@RequestBody Alquiler u){
-       return service.add(u); 
+        System.out.println(u);
+       //return service.add(u); 
+       return null;
     }
     @PutMapping("/{id}")
     public Alquiler update(@PathVariable Long id,@RequestBody Alquiler u){

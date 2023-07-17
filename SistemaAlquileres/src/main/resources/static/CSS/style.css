@@ -25,6 +25,35 @@ nav ul li a:hover{
     color:blue;
 }
 
+/* ACTIONS */
+
+.management{
+    margin-top:150px;
+}
+
+.management-card{
+    height:250px;
+    display:flex;
+    align-items:end;
+    justify-content:center;
+    border: 1px solid black;
+    background: #B6FCC8;
+}
+.management a:hover .management-card{
+    background: #B6F0C8;
+}
+.management a{
+    text-decoration: none
+}
+.management-card h1{
+    color: black;
+}
+.management-card img{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-60%);   
+}
 /*INDEX & CAROUSEL */
 
 .main-image{
