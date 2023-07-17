@@ -5,7 +5,9 @@
 package com.module.Sistema.controllers;
 
 import com.module.Sistema.entities.Inquilino;
+import com.module.Sistema.entities.Usuario;
 import com.module.Sistema.services.InquilinosService;
+import com.module.Sistema.services.UsuariosService;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,36 +27,40 @@ public class InquilinosController {
     @Autowired
     //Servicio conectado al controlador
     private InquilinosService service;
+    @Autowired
+    private UsuariosService usuariosService;
     
     //En singular y mayuscula "Inquilino" para diferenciar del rest controller
-    @RequestMapping("/Inquilino")
+    @RequestMapping("/Inquilinos/Gestion")
     public String viewHomepage(Model model){
         List<Inquilino> listInquilinos = service.findAll();
         model.addAttribute("listInquilinos",listInquilinos);
-        return("Inquilino");
+        return("InquilinosGestion");
     }
     
-    @RequestMapping("/Inquilino/findAllCustom")
+    @RequestMapping("/Inquilinos/findAllCustom")
     public String viewHomePageCustom(Model model){
         List<Inquilino> listInquilinosCustom = service.findAllCustom();
         model.addAttribute("listInquilinosCustom",listInquilinosCustom);
-        return("Inquilino");
+        return("InquilinosGestion");
     }
     
-    @RequestMapping("/Inquilino/new")
+    @RequestMapping("/Inquilinos/New")
     public String showNewInquilinoForm(Model model){
         Inquilino inquilino = new Inquilino();
+        List<Usuario> listUsuarios = usuariosService.findAllCustom();
+        model.addAttribute("listUsuarios",listUsuarios);
         model.addAttribute("inquilino",inquilino);
         return ("New_Inquilino");
     }
     
-    @RequestMapping(value="/Inquilino/save", method = RequestMethod.POST)
+    @RequestMapping(value="/Inquilinos/save", method = RequestMethod.POST)
      public String saveInquilino(@ModelAttribute("Inquilino") Inquilino inquilino){
         service.add(inquilino);
-        return("redirect:/Inquilino");
+        return("redirect:/Inquilinos/Gestion");
     }
     
-    @RequestMapping("/Inquilino/edit/{id}")
+    @RequestMapping("/Inquilinos/edit/{id}")
     public ModelAndView showEditInquilinoForm(@PathVariable(name="id") Inquilino i){
         ModelAndView mav = new ModelAndView("Edit_Inquilino");
         Inquilino inquilino = service.update(i);
@@ -62,7 +68,7 @@ public class InquilinosController {
         return mav;
     }
     
-    @RequestMapping("/Inquilino/delete/{id}")
+    @RequestMapping("/Inquilinos/delete/{id}")
     public String deleteInquilino(@PathVariable(name="id") Inquilino i){
         service.delete(i);
         return ("redirect:/Inquilino");

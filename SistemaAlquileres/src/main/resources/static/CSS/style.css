@@ -18,8 +18,11 @@
 
 /* NAV */
 
-.nav ul li:hover{
-    color:red;
+nav div ul li a{
+    color:black;
+}
+nav ul li a:hover{
+    color:blue;
 }
 
 /*INDEX & CAROUSEL */

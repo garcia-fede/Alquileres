@@ -39,7 +39,19 @@ public class InquilinosServiceImplement implements InquilinosService{
 
     @Override
     public Inquilino add(Inquilino i) {
-        return iinquilino.save(i);
+        long idUnica = i.getId_usuario().getId();
+        boolean isRepeated = false;
+        List<Inquilino> listInquilinos = iinquilino.findAll();
+        for (Inquilino inquilino : listInquilinos) {
+            if (inquilino.getId_usuario().getId() == idUnica) {
+                isRepeated = true;
+            }
+        }
+        if(isRepeated){
+            return null;
+        } else{
+            return iinquilino.save(i);
+        }
     }
 
     @Override

@@ -38,6 +38,7 @@ public class UsuariosController {
     public String showNewUsuarioForm(Model model){
         Usuario usuario = new Usuario();
         model.addAttribute("usuario",usuario);
+        
         return ("New_Usuario");
     }
     
