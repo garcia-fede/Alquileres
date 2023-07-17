@@ -63,6 +63,8 @@ public class InquilinosController {
     @RequestMapping("/Inquilinos/edit/{id}")
     public ModelAndView showEditInquilinoForm(@PathVariable(name="id") Inquilino i){
         ModelAndView mav = new ModelAndView("Edit_Inquilino");
+        List<Usuario> listUsuarios = usuariosService.findAllCustom();
+        mav.addObject("listUsuarios",listUsuarios);
         Inquilino inquilino = service.update(i);
         mav.addObject("inquilino",inquilino);
         return mav;

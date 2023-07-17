@@ -39,18 +39,36 @@ public class InquilinosServiceImplement implements InquilinosService{
 
     @Override
     public Inquilino add(Inquilino i) {
+        Optional<Inquilino> objinquilino = iinquilino.findById(i.getId());
         long idUnica = i.getId_usuario().getId();
         boolean isRepeated = false;
         List<Inquilino> listInquilinos = iinquilino.findAll();
-        for (Inquilino inquilino : listInquilinos) {
-            if (inquilino.getId_usuario().getId() == idUnica) {
-                isRepeated = true;
+        
+        if(objinquilino.isEmpty()){
+            for (Inquilino inquilino : listInquilinos) {
+                if (inquilino.getId_usuario().getId() == idUnica) {
+                    isRepeated = true;
+                }
             }
-        }
-        if(isRepeated){
-            return null;
+            if(isRepeated){
+                return null;
+            } else{
+                return iinquilino.save(i);
+            }
         } else{
-            return iinquilino.save(i);
+            //MISMO PROCESO PERO CHECKEAR QUE SEA EL MISMO ID DE USUARIO 
+            for (Inquilino inquilino : listInquilinos) {
+                if (inquilino.getId_usuario().getId() == idUnica) {
+                    if(inquilino.getId() != i.getId()){
+                        isRepeated = true;
+                    }
+                }
+            }
+            if(isRepeated){
+                return null;
+            } else{
+                return iinquilino.save(i);
+            }
         }
     }
 

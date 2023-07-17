@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -51,6 +52,7 @@ public class Inquilino implements Serializable{
     private String nombre;
     @Column(name="apellidos")
     private String apellidos;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name="fecha_nacimiento")
     private Date fecha_nacimiento;
     @Column(name="telefono")
