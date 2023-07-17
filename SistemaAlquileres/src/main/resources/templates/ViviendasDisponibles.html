@@ -16,7 +16,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <div class="container-fluid tm-content-container">
             <nav th:replace="../fragments/Menu.html :: menu"></nav>
         </div>
-        <div class="container pt-5 mt-5 d-flex justify-content-center">
+        <div class="container viviendas-container pt-5 mt-5 d-flex justify-content-center">
             <div class="col-sm-11 row d-flex justify-content-center gap-5 py-5">
                 <div class="border col-3 px-0 vivienda" th:each="vivienda : ${listViviendasCustom}">
                     <img class="w-100" th:src="${vivienda.imagen}">
@@ -25,8 +25,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <button class="btn btn-outline-dark h-50"><a href="/EasyRent/Alquileres/Solicitud">Solicitar alquiler</a></button>
                     </div>
                 </div>
-            </div>
-                
             </div>
         </div>
       <div class="g-col-12">

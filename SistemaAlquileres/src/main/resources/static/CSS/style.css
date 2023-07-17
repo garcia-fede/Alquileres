@@ -8,12 +8,29 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.title{
+    font-size:48px;
+}
+
 .Home button a{
     color:white;
 }
 
-/*CAROUSEL */
+/* NAV */
 
+.nav ul li:hover{
+    color:red;
+}
+
+/*INDEX & CAROUSEL */
+
+.main-image{
+    background-image:url('../static/images/64.svg');
+}
+.main-image img{
+    border-radius: 15%;
+    transform: translate(-15%,-7.5%);
+}
 .home-carousel{
     overflow:hidden;
 }
@@ -97,7 +114,7 @@
 .vivienda{
     transition:0.3s;
 }
-.vivienda:hover{
+.viviendas-container .vivienda:hover{
     cursor:pointer;
     transform:scale(1.1);
 }
@@ -121,7 +138,10 @@ button a{
 }
 
 /*FOOTER*/
-
+.footer-container{
+    height:auto !important;
+    bottom:0;
+}
 .footer-container ul{
     width:auto;
     padding:0;

@@ -5,7 +5,11 @@
 package com.module.Sistema.controllers;
 
 import com.module.Sistema.entities.Alquiler;
+import com.module.Sistema.entities.Inquilino;
+import com.module.Sistema.entities.Vivienda;
 import com.module.Sistema.services.AlquileresService;
+import com.module.Sistema.services.InquilinosService;
+import com.module.Sistema.services.ViviendasService;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +29,10 @@ public class AlquileresController {
     @Autowired
     //Servicio conectado al controlador
     private AlquileresService service;
+    @Autowired
+    private ViviendasService viviendasService;
+    @Autowired
+    private InquilinosService inquilinosService;
     
     //En singular y mayuscula "Alquiler" para diferenciar del rest controller
     @RequestMapping("/Alquileres/Gestion")
@@ -51,23 +59,31 @@ public class AlquileresController {
     @RequestMapping("/Alquileres/New")
     public String showNewAlquilerForm(Model model){
         Alquiler alquiler = new Alquiler();
+        List<Vivienda> listViviendas = viviendasService.findAllCustom();
+        List<Inquilino> listInquilinos = inquilinosService.findAllCustom();
+        model.addAttribute("listViviendas",listViviendas);
+        model.addAttribute("listInquilinos",listInquilinos);
         model.addAttribute("alquiler",alquiler);
         return ("New_Alquiler");
     }
         
     @RequestMapping(value="/Alquileres/save", method = RequestMethod.POST)
      public String saveAlquiler(@ModelAttribute("Alquiler") Alquiler alquiler){
-         try{
-            service.add(alquiler);
-            return("redirect:/Alquileres/Gestion");
-         } catch(Exception e){
-             return("ErrorPage");
-         }
+        try{
+           service.add(alquiler);
+           return("redirect:/Alquileres/Gestion");
+        } catch(Exception e){
+            return("ErrorPage");
+        }
     }
      
     @RequestMapping("/Alquileres/Solicitud")
     public String showNewSolicitudForm(Model model){
         Alquiler alquiler = new Alquiler();
+        List<Vivienda> listViviendas = viviendasService.findAllCustom();
+        List<Inquilino> listInquilinos = inquilinosService.findAllCustom();
+        model.addAttribute("listViviendas",listViviendas);
+        model.addAttribute("listInquilinos",listInquilinos);
         model.addAttribute("alquiler",alquiler);
         return ("Solicitud_Alquiler");
     }
@@ -86,6 +102,10 @@ public class AlquileresController {
     @RequestMapping("/Alquileres/edit/{id}")
     public ModelAndView showEditAlquilerForm(@PathVariable(name="id") Alquiler a){
         ModelAndView mav = new ModelAndView("Edit_Alquiler");
+        List<Vivienda> listViviendas = viviendasService.findAllCustom();
+        List<Inquilino> listInquilinos = inquilinosService.findAllCustom();
+        mav.addObject("listViviendas",listViviendas);
+        mav.addObject("listInquilinos",listInquilinos);
         Alquiler alquiler = service.update(a);
         mav.addObject("alquiler",alquiler);
         return mav;

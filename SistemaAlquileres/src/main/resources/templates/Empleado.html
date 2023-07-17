@@ -8,6 +8,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
     </head>
     <body>
         <div style="height:1000px;width:100%;display:flex;justify-content:center;align-items: center;gap:1rem;">
@@ -15,6 +16,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <a href="">Inquilinos</a> 
             <a href="/EasyRent/Viviendas/Gestion">Viviendas</a> //habilitar
             <a href="/EasyRent/Agencias/Gestion">Agencias</a>
+        </div>
+        <div class="g-col-12">
+          <!-- Footer -->
+            <footer th:replace="../fragments/Footer.html :: footer" class="row mx-auto tm-footer"></footer>
         </div>
     </body>
 </html>
